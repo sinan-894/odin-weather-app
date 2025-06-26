@@ -5,7 +5,8 @@ async function getWeatherData(location){
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
         const data = await response.json()
         console.log(data)
-        extractDataFromResponse(data)
+        const extractData  = extractDataFromResponse(data)
+        console.log(extractData)
     }
     catch{
         console.log('enter correct location')
@@ -17,8 +18,20 @@ getWeatherData('perinthalmanna')
 
 
 function extractDataFromResponse(data){
-    const TEMP = data.currentConditions.temp
-    console.log(TEMP)
+    const currentTemp = data.currentConditions.temp
+    const currentDiscription = data.currentConditions.conditions
+    const location = data.address
+
+    const dataOfNextSixDays = (()=>{
+        return data.days.slice(1,7).map((day,index)=>{
+            return {
+                mintemp : day.tempmin,
+                maxtemp : day.tempmax
+            }
+        })
+    })()
+
+    return {currentTemp,currentDiscription,location,dataOfNextSixDays}
 }
 
 function createForm(){
