@@ -14,7 +14,7 @@ async function getWeatherData(location){
     } 
 }
 
-getWeatherData('perinthalmanna')
+
 
 
 function extractDataFromResponse(data){
