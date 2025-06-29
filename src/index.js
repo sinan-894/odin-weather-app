@@ -1,17 +1,22 @@
-
+import { format } from "date-fns"
 
 async function getWeatherData(location){
-    try{
-        const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
-        const data = await response.json()
-        console.log(data)
-        const extractData  = extractDataFromResponse(data)
-        console.log(extractData)
-    }
-    catch{
-        console.log('enter correct location')
-        console.log('eneterd location:',location)
-    } 
+    const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
+    const data = await response.json()
+    console.log(data)
+    const extractData  = extractDataFromResponse(data)
+    console.log(extractData)
+    // try{
+    //     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
+    //     const data = await response.json()
+    //     console.log(data)
+    //     const extractData  = extractDataFromResponse(data)
+    //     console.log(extractData)
+    // }
+    // catch{
+    //     console.log('enter correct location')
+    //     console.log('eneterd location:',location)
+    // } 
 }
 
 
@@ -22,16 +27,29 @@ function extractDataFromResponse(data){
     const currentDiscription = data.currentConditions.conditions
     const location = data.address
 
+    const formatDate = (distanceFromToday=0)=>{
+        const date = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate()+distanceFromToday
+        );
+
+        return format(date, 'eee dd MMM yyyy')
+    }
+
     const dataOfNextSixDays = (()=>{
         return data.days.slice(1,7).map((day,index)=>{
             return {
+                day:formatDate(index+1),
                 mintemp : day.tempmin,
                 maxtemp : day.tempmax
             }
         })
     })()
 
-    return {currentTemp,currentDiscription,location,dataOfNextSixDays}
+    
+
+    return {day:formatDate(),currentTemp,currentDiscription,location,dataOfNextSixDays}
 }
 
 function createForm(){
