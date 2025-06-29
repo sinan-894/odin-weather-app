@@ -90,6 +90,7 @@ function displayData(data){
     const dom = displayWeatherData(data)
     dataDiv.innerHTML = ""
     dataDiv.appendChild(dom.todayWeatherContainer())
+    dataDiv.appendChild(dom.displayDataOfTheWeek())
 }
 
 document.body.appendChild(createForm());
