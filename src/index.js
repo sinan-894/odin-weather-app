@@ -8,9 +8,7 @@ async function getWeatherData(location){
     const data = await response.json()
     console.log(data)
     const extractData  = extractDataFromResponse(data)
-    const dom = displayWeatherData(extractData)
-    dataDiv.innerHTML = ""
-    dataDiv.appendChild(dom.todayWeatherContainer())
+    displayData(extractData)
     console.log(extractData)
     // try{
     //     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
@@ -86,6 +84,12 @@ function createForm(){
 
     return form
 
+}
+
+function displayData(data){
+    const dom = displayWeatherData(data)
+    dataDiv.innerHTML = ""
+    dataDiv.appendChild(dom.todayWeatherContainer())
 }
 
 document.body.appendChild(createForm());
