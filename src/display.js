@@ -22,8 +22,16 @@ export function displayWeatherData(data){
 
     const displayTempData = (temp,classes,tag='section')=>{
         const data = displayData(temp,classes,tag)
+        data.appendChild(addSymbol('F'))
         listOfTempValueTags.push(data)
         return data
+    }
+
+    const addSymbol = (s)=>{
+        const span = document.createElement('span')
+        span.classList.add('temp-symbol');
+        span.textContent = `°${s}`
+        return span
     }
 
     const displayMinAndMaxValue =(mintemp,maxtemp,classes)=>{
@@ -56,13 +64,16 @@ export function displayWeatherData(data){
         const button = document.createElement('button');
         button.textContent = 'Fahrenheit';
         button.addEventListener('click',()=>{
+            let symbol = document.querySelectorAll('.temp-symbol')
             if(button.textContent=="Fahrenheit"){
                 button.textContent = 'Celsius';
                 convertTemprature(true)
+                symbol.forEach(tag=>{tag.textContent = '°C'})
             }
             else{
                 button.textContent = 'Fahrenheit';
                 convertTemprature(false)
+                symbol.forEach(tag=>{tag.textContent = '°F'})
             }
         })
 
@@ -75,7 +86,7 @@ export function displayWeatherData(data){
 
         listOfTempValueTags.forEach(tag=>{
             console.log(tag)
-            tag.textContent = convertor(Number(tag.textContent)).toFixed(1)
+            // tag.textContent = convertor(Number(tag.textContent)).toFixed(1)
         })
 
     }

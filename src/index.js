@@ -92,7 +92,6 @@ function displayData(data){
     spanForButton.append(dom.tempratureConvertor())
     dataDiv.appendChild(dom.todayWeatherContainer())
     dataDiv.appendChild(dom.displayDataOfTheWeek())
-    console.log(dom.listOfTempValueTags)
 }
 
 document.body.appendChild(createForm());
