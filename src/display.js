@@ -21,8 +21,7 @@ export function displayWeatherData(data){
     }
 
     const displayTempData = (temp,classes,tag='section')=>{
-        const data = displayData(temp,classes,tag)
-        data.appendChild(addSymbol('F'))
+        const data = displayData(`${temp}°F`,classes,tag)
         listOfTempValueTags.push(data)
         return data
     }
@@ -68,12 +67,10 @@ export function displayWeatherData(data){
             if(button.textContent=="Fahrenheit"){
                 button.textContent = 'Celsius';
                 convertTemprature(true)
-                symbol.forEach(tag=>{tag.textContent = '°C'})
             }
             else{
                 button.textContent = 'Fahrenheit';
                 convertTemprature(false)
-                symbol.forEach(tag=>{tag.textContent = '°F'})
             }
         })
 
@@ -83,10 +80,11 @@ export function displayWeatherData(data){
 
     const convertTemprature = (toCelsius)=>{
         const convertor = (toCelsius)?convertToCelsius:convertToFarenheit;
-
+        const symbol = (toCelsius)?'C':'F'
         listOfTempValueTags.forEach(tag=>{
-            console.log(tag)
-            // tag.textContent = convertor(Number(tag.textContent)).toFixed(1)
+            console.log(tag.textContent)
+            let temp  = Number(tag.textContent.split('°')[0])
+            tag.textContent = `${convertor(temp).toFixed(1)}°${symbol}`
         })
 
     }

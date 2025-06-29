@@ -89,7 +89,8 @@ function createForm(){
 function displayData(data){
     const dom = displayWeatherData(data)
     dataDiv.innerHTML = ""
-    spanForButton.append(dom.tempratureConvertor())
+    spanForButton.innerHTML = ''
+    spanForButton.appendChild(dom.tempratureConvertor())
     dataDiv.appendChild(dom.todayWeatherContainer())
     dataDiv.appendChild(dom.displayDataOfTheWeek())
 }
