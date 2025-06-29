@@ -1,20 +1,39 @@
 
 
 export function displayWeatherData(data){
+    const listOfTempValueTags = []
+
     const todayWeatherContainer = ()=>{
         const container = document.createElement('div');
         container.classList.add('today-weather-contain');
         container.appendChild(displayData(data.location,'location'))
         container.appendChild(displayData(data.day,'day'))
-        container.appendChild(displayData(data.currentTemp,'temprature'))
+        container.appendChild(displayTempData(data.currentTemp,'temprature'))
         container.appendChild(displayData(data.currentDiscription,'discription'))
         return container
     }
 
-    const displayData = (content,classes) =>{
-        const data  = document.createElement('section')
+    const displayData = (content,classes,tag='section') =>{
+        const data  = document.createElement(tag)
         data.classList.add(classes);
         data.textContent =content;
+        return data
+    }
+
+    const displayTempData = (temp,classes,tag='section')=>{
+        const data = displayData(temp,classes,tag)
+        listOfTempValueTags.push(data)
+        return data
+    }
+
+    const displayMinAndMaxValue =(mintemp,maxtemp,classes)=>{
+        const data  = document.createElement('section')
+        const seperator = document.createElement('span')
+        seperator.textContent = '-'
+        data.appendChild(displayTempData(mintemp,'min','span'))
+        data.appendChild(seperator)
+        data.appendChild(displayTempData(maxtemp,'max','span'))
+
         return data
     }
 
@@ -25,13 +44,48 @@ export function displayWeatherData(data){
             let dataDiv = document.createElement('div');
             dataDiv.classList.add('week-data')
             dataDiv.appendChild(displayData(dayData.day,'day-week'))
-            dataDiv.appendChild(displayData(
-                `${dayData.mintemp}-${dayData.maxtemp}`,'temp-week'))
+            dataDiv.appendChild(displayMinAndMaxValue(
+                dayData.mintemp,dayData.maxtemp,'temp-week'
+            ))
             container.appendChild(dataDiv)
         });
         return container
     }
 
-    return {todayWeatherContainer,displayDataOfTheWeek}
+    const tempratureConvertor = ()=>{
+        const button = document.createElement('button');
+        button.textContent = 'Fahrenheit';
+        button.addEventListener('click',()=>{
+            if(button.textContent=="Fahrenheit"){
+                button.textContent = 'Celsius';
+                convertTemprature(true)
+            }
+            else{
+                button.textContent = 'Fahrenheit';
+                convertTemprature(false)
+            }
+        })
+
+        return button
+
+    }
+
+    const convertTemprature = (toCelsius)=>{
+        const convertor = (toCelsius)?convertToCelsius:convertToFarenheit;
+
+        listOfTempValueTags.forEach(tag=>{
+            console.log(tag)
+            tag.textContent = convertor(Number(tag.textContent)).toFixed(1)
+        })
+
+    }
+    
+
+   
+
+    const convertToFarenheit = (n)=>(n*(9/5)+32)
+    const convertToCelsius = (n)=>((n-32)*(5/9))
+
+    return {todayWeatherContainer,displayDataOfTheWeek,tempratureConvertor}
     
 }

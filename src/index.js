@@ -89,11 +89,15 @@ function createForm(){
 function displayData(data){
     const dom = displayWeatherData(data)
     dataDiv.innerHTML = ""
+    spanForButton.append(dom.tempratureConvertor())
     dataDiv.appendChild(dom.todayWeatherContainer())
     dataDiv.appendChild(dom.displayDataOfTheWeek())
+    console.log(dom.listOfTempValueTags)
 }
 
 document.body.appendChild(createForm());
+const spanForButton = document.createElement('span')
+document.body.appendChild(spanForButton);
 const dataDiv = document.createElement('div');
 dataDiv.classList.add('data-container')
 document.body.appendChild(dataDiv);
