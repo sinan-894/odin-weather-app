@@ -108,10 +108,16 @@ body{
     font-weight: bold;
 }
 
-.error-div{
+.error-div,.loading-div{
     margin-top: 40px;
     width: 100%;
     font-size: 2em;
-    color: red;
     text-align: center;
+}
+
+.error-div{
+    color: red;
+}
+.loading-div{
+    color: green;
 }
