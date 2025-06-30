@@ -16,6 +16,7 @@ async function getWeatherData(location){
     catch{
         console.log('enter correct location')
         console.log('eneterd location:',location)
+        displayError()
     } 
 }
 
@@ -90,6 +91,15 @@ function displayData(data){
     dataDiv.appendChild(dom.todayWeatherContainer())
     dataDiv.appendChild(dom.displayDataOfTheWeek())
 }
+
+function displayError(){
+    dataDiv.innerHTML = ""
+    const errorContainer = document.createElement('div');
+    errorContainer.classList.add('error-div')
+    errorContainer.textContent = "Sorry!Location Not Found,Please Enter Valid Location"
+    dataDiv.appendChild(errorContainer)
+}
+
 const headDiv  = document.createElement('div');
 headDiv.classList.add('head-div')
 document.body.appendChild(headDiv);
