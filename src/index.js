@@ -9,12 +9,13 @@ import searchSvg from "./search-alt-svgrepo-com.svg";
 async function getWeatherData(location){
     try{
         console.log('loading......')
-        displayLoading()
+        displayLoading(dataDiv)
         const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=us&key=CNEXBFJPH8DQF552XSPHKFV37&contentType=json`)
         const data = await response.json()
         console.log(data)
         const extractData  = extractDataFromResponse(data)
         displayData(extractData)
+        displayWeatherGif(extractData.currentDiscription+' weather')
         console.log(extractData)
     }
     catch{
@@ -29,6 +30,7 @@ function extractDataFromResponse(data){
     const currentTemp = data.currentConditions.temp
     const currentDiscription = data.currentConditions.conditions
     const location = data.address
+    const icon = data.currentConditions.icon
 
     const formatDate = (distanceFromToday=0)=>{
         const date = new Date(
@@ -52,7 +54,7 @@ function extractDataFromResponse(data){
 
     
 
-    return {day:formatDate(),currentTemp,currentDiscription,location,dataOfNextSixDays}
+    return {day:formatDate(),currentTemp,currentDiscription,location,dataOfNextSixDays,icon}
 }
 
 function createForm(){
@@ -106,12 +108,25 @@ function displayError(){
     dataDiv.appendChild(errorContainer)
 }
 
-function displayLoading(){
-    dataDiv.innerHTML = ""
+function displayLoading(continer){
+    continer.innerHTML = ""
     const loadingContainer = document.createElement('div');
     loadingContainer.classList.add('loading-div')
     loadingContainer.textContent = "Loading....."
-    dataDiv.appendChild(loadingContainer)
+    continer.appendChild(loadingContainer)
+}
+
+
+
+async function displayWeatherGif(s){
+    console.log('gif loading....',s)
+    displayLoading(gifContainer)
+    const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=S10RpEK19UYqeHM1pzvPuHWePzHOxvcb&s=${s}`)
+    const data = await response.json()
+    const img = document.createElement('img');
+    img.src = data.data.images.original.url;
+    gifContainer.innerHTML = " "
+    gifContainer.appendChild(img)
 }
 
 const heading  = document.createElement('h1');
@@ -128,3 +143,8 @@ headDiv.appendChild(spanForButton);
 const dataDiv = document.createElement('div');
 dataDiv.classList.add('data-container')
 document.body.appendChild(dataDiv);
+
+
+const gifContainer = document.createElement('div');
+gifContainer.classList.add('gif-container');
+document.body.appendChild(gifContainer)

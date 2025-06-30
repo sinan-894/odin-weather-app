@@ -122,3 +122,12 @@ body{
 .loading-div{
     color: green;
 }
+
+.gif-container{
+    width: 50%;
+    margin-top: 40px ;
+}
+
+.gif-container img{
+    width: 100%;
+}
