@@ -1,0 +1,56 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    --test-border:2px solid black;
+   
+    
+}
+
+.head-div{
+    display: flex;
+    margin-top: 40px;
+}
+
+.data-container{
+    width: 75%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.today-weather-contain{
+    margin-top: 40px;
+    border: var(--test-border);
+    text-align: center;
+    border-radius: 20px ;
+    padding: 10px 50px 10px 50px;
+}
+
+.week-data-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.week-data{
+    margin-top: 30px;
+    border: var(--test-border);
+    text-align: center;
+    padding: 5px;
+    border-radius: 20px ;
+}
+
+.temprature{
+    font-size: 3em;
+}
+
+.day-week{
+    margin-bottom: 10px;
+}
+
+.min,.max{
+    font-size: 1.2em;
+    font-weight: bold;
+}

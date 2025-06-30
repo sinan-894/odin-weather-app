@@ -1,5 +1,6 @@
 import { format } from "date-fns"
 import { displayWeatherData } from "./display"
+import './style.css'
 
 
 
@@ -89,10 +90,13 @@ function displayData(data){
     dataDiv.appendChild(dom.todayWeatherContainer())
     dataDiv.appendChild(dom.displayDataOfTheWeek())
 }
+const headDiv  = document.createElement('div');
+headDiv.classList.add('head-div')
+document.body.appendChild(headDiv);
+headDiv.appendChild(createForm())
 
-document.body.appendChild(createForm());
 const spanForButton = document.createElement('span')
-document.body.appendChild(spanForButton);
+headDiv.appendChild(spanForButton);
 const dataDiv = document.createElement('div');
 dataDiv.classList.add('data-container')
 document.body.appendChild(dataDiv);

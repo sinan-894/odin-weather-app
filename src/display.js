@@ -35,6 +35,7 @@ export function displayWeatherData(data){
 
     const displayMinAndMaxValue =(mintemp,maxtemp,classes)=>{
         const data  = document.createElement('section')
+        data.classList.add(classes)
         const seperator = document.createElement('span')
         seperator.textContent = '-'
         data.appendChild(displayTempData(mintemp,'min','span'))
