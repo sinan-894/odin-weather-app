@@ -83,6 +83,7 @@ body{
     display: flex;
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .week-data{
