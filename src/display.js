@@ -62,15 +62,16 @@ export function displayWeatherData(data){
 
     const tempratureConvertor = ()=>{
         const button = document.createElement('button');
-        button.textContent = 'Fahrenheit';
+        button.classList.add('convert-button')
+        button.textContent = '°F';
         button.addEventListener('click',()=>{
             let symbol = document.querySelectorAll('.temp-symbol')
-            if(button.textContent=="Fahrenheit"){
-                button.textContent = 'Celsius';
+            if(button.textContent=="°F"){
+                button.textContent = '°C';
                 convertTemprature(true)
             }
             else{
-                button.textContent = 'Fahrenheit';
+                button.textContent = '°F';
                 convertTemprature(false)
             }
         })

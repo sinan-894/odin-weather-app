@@ -2,6 +2,8 @@ import { format } from "date-fns"
 import { displayWeatherData } from "./display"
 import './style.css'
 
+import searchSvg from "./search-alt-svgrepo-com.svg";
+
 
 
 async function getWeatherData(location){
@@ -59,10 +61,12 @@ function createForm(){
     inputField.name = 'location'
     inputField.classList.add('location-input');
     const label = document.createElement('label');
-    label.textContent = 'location';
+    label.textContent = 'Location';
     label.for = inputField.name;
     const button = document.createElement('button')
-    button.textContent = 'search';
+    const img  = document.createElement('img');
+    img.src = searchSvg
+    button.appendChild(img);
     button.classList.add('search-button');
 
     function onSearch(event){
@@ -100,6 +104,10 @@ function displayError(){
     dataDiv.appendChild(errorContainer)
 }
 
+const heading  = document.createElement('h1');
+heading.classList.add('heading')
+heading.textContent = 'What A Verthe!'
+document.body.appendChild(heading)
 const headDiv  = document.createElement('div');
 headDiv.classList.add('head-div')
 document.body.appendChild(headDiv);
